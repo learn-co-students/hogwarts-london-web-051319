@@ -1,7 +1,7 @@
 import React from 'react'
 import HogDetails from './HogDetails'
 
-const HogContainer = ({ hogs, selectHog, selectedHog }) => {
+const HogContainer = ({ hogs, selectHog, selectedHog, hide }) => {
   return <div className='ui three column grid'>
     {hogs.map((hog, i) => {
       return <div className='column'>
@@ -9,7 +9,7 @@ const HogContainer = ({ hogs, selectHog, selectedHog }) => {
           <div className='header'>{hog.name}</div>
           <img src={require(`../hog-imgs/${hog.name.toLowerCase().split(' ').join('_')}.jpg`)} />
           {
-            selectedHog && (selectedHog.name === hog.name) ? <HogDetails hog={hog} /> : <div />
+            selectedHog && (selectedHog.name === hog.name) ? <HogDetails hog={hog} hide={hide}/> : <div />
           }
         </div>
       </div>
