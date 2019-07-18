@@ -4,11 +4,16 @@ import HogTile from './HogTile'
 class Index extends React.Component {
   state = {
     filter: false,
-    sortByWeight: false
+    sortByWeight: false,
+    hiddenPigs: []
+  }
+
+  pigsToShow = () => {
+    return this.props.hogs.filter(pig => !this.state.hiddenPigs.includes(pig.name))
   }
 
   filteredHogs = () => {
-    return this.state.filter ? this.props.hogs.filter(hog => hog.greased) : this.props.hogs
+    return this.state.filter ? this.pigsToShow().filter(hog => hog.greased) : this.pigsToShow()
   }
 
   sortedHogs = () => {
@@ -27,15 +32,24 @@ class Index extends React.Component {
     this.setState({sortByWeight: !this.state.sortByWeight})
   }
 
+  clearHiddenPigs = () => {
+    this.setState({hiddenPigs: []})
+  }
+
+  addHiddenPig = (pig) => {
+    this.setState({hiddenPigs: [...this.state.hiddenPigs, pig.name]})
+  }
+
   render() {
     return (
       <div>
-      <button onClick={this.toggleFilter}>FILTER FOR GREASE: {this.state.filter ? 'ON' : 'OFF'}</button>
-      <button onClick={this.toggleSort}>Sorted by {this.state.sortByWeight ? 'Weight' : 'Name'}</button>
-      <br /><br />
-      <div className="ui grid container">
-        {this.sortedHogs().map(hog => <HogTile hog={hog} />)}
-      </div>
+        <button className='ui button small' onClick={this.toggleFilter}>FILTER FOR GREASE: {this.state.filter ? 'ON' : 'OFF'}</button>
+        <button className='ui button small' onClick={this.toggleSort}>Sort by {this.state.sortByWeight ? 'Name' : 'Weight'}</button>
+        {this.state.hiddenPigs.length === 0 ? '' : <button className='ui button small' onClick={this.clearHiddenPigs}>Show All Pigs</button>}
+        <br /><br />
+        <div className="ui grid container">
+            {this.sortedHogs().map(hog => <HogTile hog={hog} key={hog.name} addHiddenPig={() => this.addHiddenPig(hog)}/>)}
+        </div>
       </div>
     )
   }
