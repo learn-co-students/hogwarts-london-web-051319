@@ -1,5 +1,6 @@
 import React from 'react'
 import HogTile from './HogTile'
+import Button from './Button'
 
 class Index extends React.Component {
   state = {
@@ -43,9 +44,9 @@ class Index extends React.Component {
   render() {
     return (
       <div>
-        <button className='ui button small' onClick={this.toggleFilter}>FILTER FOR GREASE: {this.state.filter ? 'ON' : 'OFF'}</button>
-        <button className='ui button small' onClick={this.toggleSort}>Sort by {this.state.sortByWeight ? 'Name' : 'Weight'}</button>
-        {this.state.hiddenPigs.length === 0 ? '' : <button className='ui button small' onClick={this.clearHiddenPigs}>Show All Pigs</button>}
+        <Button handleClick={this.toggleFilter} text={`FILTER FOR GREASE: ${this.state.filter ? 'ON' : 'OFF'}`} />
+        <Button handleClick={this.toggleSort} text={`Sort by ${this.state.sortByWeight ? 'Name' : 'Weight'}`} />
+        {this.state.hiddenPigs.length === 0 ? '' : <Button handleClick={this.clearHiddenPigs} text={'Show All Pigs'}/>}
         <br /><br />
         <div className="ui grid container">
             {this.sortedHogs().map(hog => <HogTile hog={hog} key={hog.name} addHiddenPig={() => this.addHiddenPig(hog)}/>)}
