@@ -14,26 +14,33 @@ class App extends Component {
       'greased',
       'ungreased'
     ],
-    filter: {
-      type: 'all'
-    }
+    filteredHogs: hogs
   }
 
-  // changeFilter = type => {
-  //   this.setState({
-  //     greasedFilters: {
-  //       ...this.state.greasedFilter,
-  //       greasedOptions: 
-  //     }
-  //   })
-  // }
+  filterHogs = (option) => {
+    if(option === 'greased') {
+      this.setState({
+        filteredHogs: this.state.hogs.filter(hog => hog.greased === true)
+      })
+    }  else if (options === 'ungreased') {
+      this.setState({
+        filteredHogs: this.state.hogs.filter(hog => hog.greased === false)
+      })
+    } else if (option === 'all') {
+      this.setState({
+        filteredHogs: this.state.hogs
+      })
+    } else {
+      console.log("error")
+    }
+  }
   
   render() {
-    const {filter, greasedOptions} = this.state
+    const {greasedOptions} = this.state
     return (
       <div className="App">
           <Nav />
-          <Filter filter={filter} greasedOptions={greasedOptions} handleEvent={this.changeFilter}/>
+          <Filter greasedOptions={greasedOptions} handleEvent={this.filterHogs}/>
           <HogsList hogs={this.state.hogs}/>
       </div>
     )
