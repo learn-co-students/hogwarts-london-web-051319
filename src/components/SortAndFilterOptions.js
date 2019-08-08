@@ -7,7 +7,7 @@ class Filter extends React.Component {
             <div>
                 <select onChange={event => handleEvent(event.target.value)}>
                 {
-                    greasedOptions.map((option => <option value={option}>{option}</option>))
+                    greasedOptions.map(option => <option value={option}>{option}</option>)
                 }
                 </select>
             </div>

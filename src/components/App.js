@@ -22,7 +22,7 @@ class App extends Component {
       this.setState({
         filteredHogs: this.state.hogs.filter(hog => hog.greased === true)
       })
-    }  else if (options === 'ungreased') {
+    }  else if (option === 'ungreased') {
       this.setState({
         filteredHogs: this.state.hogs.filter(hog => hog.greased === false)
       })
@@ -41,7 +41,7 @@ class App extends Component {
       <div className="App">
           <Nav />
           <Filter greasedOptions={greasedOptions} handleEvent={this.filterHogs}/>
-          <HogsList hogs={this.state.hogs}/>
+          <HogsList hogs={this.state.filteredHogs}/>
       </div>
     )
   }
